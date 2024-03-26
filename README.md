@@ -1,4 +1,4 @@
-<img src="screenshots/screen-1.png" width="200"> <img src="screenshots/screen-2.png" width="200"> <img src="screenshots/screen-5.png" width="200"> <img src="screenshots/screen-4.png" width="200"> 
+<img src="screenshots/screen_1.png" width="200"> <img src="screenshots/screen_2.png" width="200"> <img src="screenshots/screen_5.png" width="200"> <img src="screenshots/screen_4.png" width="200"> 
 
 
 # Pixabay Image Searcher
@@ -20,8 +20,8 @@
   - Show details alert dialog
   - Image Details screen with zoom
   - Show cached image at first on Image Details screen 
-  - Share photo
-  - Open author profile (web)
+  - Share image url
+  - Open user profile (web)
 
  ## Architecture
 
