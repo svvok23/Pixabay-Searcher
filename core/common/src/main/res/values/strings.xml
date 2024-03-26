@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pixabay</string>
+    <string name="loading_failed">Failed to load</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading…</string>
+    <string name="not_connected">You aren’t connected to the internet</string>
+    <string name="share_pixabay">Share Pixabay</string>
+    <string name="share">Share</string>
+    <string name="back">Back</string>
+    <string name="search">Search</string>
+    <string name="close">Close</string>
+    <string name="clear">Clear</string>
+    <string name="history">History</string>
+    <string name="likes">Likes</string>
+    <string name="downloads">Downloads</string>
+    <string name="comments">Comments</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>
