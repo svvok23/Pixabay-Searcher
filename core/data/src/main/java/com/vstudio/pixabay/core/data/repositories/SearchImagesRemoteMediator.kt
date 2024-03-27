@@ -10,6 +10,7 @@ import com.vstudio.pixabay.core.database.model.ImageEntity
 import com.vstudio.pixabay.core.database.model.RemoteKey
 import com.vstudio.pixabay.core.network.ImagesRemoteDataSource
 import com.vstudio.pixabay.core.network.NetworkConst.DEFAULT_PAGE_INDEX
+import com.vstudio.pixabay.core.network.NetworkConst.IMAGE_URL_VALID_TIME
 import com.vstudio.pixabay.core.network.NetworkConst.PAGE_INCREMENT
 import com.vstudio.pixabay.core.network.model.HitDto
 import retrofit2.HttpException
@@ -25,10 +26,8 @@ internal class SearchImagesRemoteMediator(
 ) : RemoteMediator<Int, ImageEntity>() {
 
     override suspend fun initialize(): InitializeAction {
-        // Some images URL valid for 24 hours
-        val day = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)
         val updatedTime = imagesLocalDataSource.getOldestCreationTime(query) ?: 0
-        return if (System.currentTimeMillis() - updatedTime < day) {
+        return if (System.currentTimeMillis() - updatedTime < IMAGE_URL_VALID_TIME) {
             InitializeAction.SKIP_INITIAL_REFRESH
         } else {
             InitializeAction.LAUNCH_INITIAL_REFRESH
