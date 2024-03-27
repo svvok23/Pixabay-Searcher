@@ -12,7 +12,10 @@ import com.vstudio.pixabay.core.database.util.Converters
 
 @Database(
     entities = [ImageEntity::class, RemoteKey::class],
-    version = 1,
+    version = 3,
+    autoMigrations = [
+        AutoMigration(from = 2, to = 3, spec = DatabaseMigrations.Schema2to3::class),
+    ],
     exportSchema = true
 )
 @TypeConverters(Converters::class)

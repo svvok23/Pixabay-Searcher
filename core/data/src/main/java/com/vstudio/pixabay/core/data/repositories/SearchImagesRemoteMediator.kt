@@ -104,7 +104,7 @@ internal class SearchImagesRemoteMediator(
         state: PagingState<Int, ImageEntity>,
     ): RemoteKey? {
         return state.anchorPosition?.let { position ->
-            state.closestItemToPosition(position)?.dbId?.let {
+            state.closestItemToPosition(position)?.id?.let {
                 imagesLocalDataSource.getRemoteKey(it)
             }
         }
@@ -114,7 +114,7 @@ internal class SearchImagesRemoteMediator(
         state: PagingState<Int, ImageEntity>,
     ): RemoteKey? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { image ->
-            imagesLocalDataSource.getRemoteKey(image.dbId)
+            imagesLocalDataSource.getRemoteKey(image.id)
         }
     }
 
@@ -122,7 +122,7 @@ internal class SearchImagesRemoteMediator(
         state: PagingState<Int, ImageEntity>,
     ): RemoteKey? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { image ->
-            imagesLocalDataSource.getRemoteKey(image.dbId)
+            imagesLocalDataSource.getRemoteKey(image.id)
         }
     }
 }

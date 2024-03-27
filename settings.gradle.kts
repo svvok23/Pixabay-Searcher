@@ -22,10 +22,10 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "Pixabay"
 include(":app")
+include(":feature:search")
+include(":feature:image")
 include(":core:common")
 include(":core:domain")
 include(":core:data")
-include(":feature:search")
-include(":feature:image")
 include(":core:database")
 include(":core:network")

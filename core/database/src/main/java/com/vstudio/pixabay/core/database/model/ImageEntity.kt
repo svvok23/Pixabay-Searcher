@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
 )
 data class ImageEntity(
     @PrimaryKey(autoGenerate = true)
-    val dbId: Long = 0,
+    val id: Long = 0,
     val imageId: Long,
     val width: Int,
     val height: Int,

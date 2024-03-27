@@ -72,7 +72,7 @@ internal class ImageMapperEntityToModel @Inject constructor() : Mapper<ImageEnti
             avatarUrl = from.user.avatarUrl
         )
         return Image(
-            dbId = from.dbId,
+            dbId = from.id,
             id = from.imageId,
             width = from.width,
             height = from.height,

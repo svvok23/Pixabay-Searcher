@@ -12,6 +12,7 @@
   - Pull to refresh
   - Caching data and images (offline mode)
   - Automatic update after internet connection is restored
+  - Database migration example
   - Dark/Light themes, fullscreen app design
   - Grid/List Feed view
   - Error, Empty, Loading view states
