@@ -16,8 +16,10 @@ data class HitDto(
     val previewHeight: Int,
     @SerialName(value = "webformatURL")
     val webFormatUrl: String,
-    val webFormatWidth: Int? = null,
-    val webFormatHeight: Int? = null,
+    @SerialName(value = "webformatWidth")
+    val webFormatWidth: Int,
+    @SerialName(value = "webformatHeight")
+    val webFormatHeight: Int,
     @SerialName(value = "largeImageURL")
     val largeImageUrl: String,
     @SerialName(value = "fullHDURL")

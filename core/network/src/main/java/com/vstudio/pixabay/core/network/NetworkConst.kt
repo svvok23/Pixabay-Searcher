@@ -9,6 +9,9 @@ object NetworkConst {
     const val DEFAULT_PAGE_INDEX = 1
     const val PAGE_INCREMENT = 1
 
+    const val LARGE_IMAGE_MAX_SIZE = 1280
+    const val FULL_HD_IMAGE_MAX_SIZE = 1920
+
     // Some images URL valid for 24 hours
     val IMAGE_URL_VALID_TIME = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)
 

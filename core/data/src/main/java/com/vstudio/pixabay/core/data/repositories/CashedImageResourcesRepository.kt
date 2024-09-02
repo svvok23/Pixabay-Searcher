@@ -10,7 +10,7 @@ internal class CashedImageResourcesRepository @Inject constructor(
 ) : ImageResourcesRepository {
 
     override fun getCashedImageUrl(image: Image): String? {
-        val urls = with(image) { listOf(originalUrl, largeImageUrl, webFormatUrl, previewUrl) }
+        val urls = image.multiSizeImage.sizes.values.toList()
         return imageResources.getCashedImageUrl(urls)
     }
 }

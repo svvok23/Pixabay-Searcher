@@ -15,7 +15,6 @@ import com.vstudio.pixabay.core.network.NetworkConst.PAGE_INCREMENT
 import com.vstudio.pixabay.core.network.model.HitDto
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 internal class SearchImagesRemoteMediator(

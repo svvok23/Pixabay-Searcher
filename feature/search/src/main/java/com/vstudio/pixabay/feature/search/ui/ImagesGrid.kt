@@ -31,7 +31,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.vstudio.pixabay.core.common.R
 import com.vstudio.pixabay.core.common.ui.theme.placeholderColors
+import com.vstudio.pixabay.core.common.ui.toPx
 import com.vstudio.pixabay.core.domain.model.Image
+import com.vstudio.pixabay.core.domain.model.ImageSize
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -80,7 +82,12 @@ private fun ImageCard(
         Box(modifier = modifier) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(image.webFormatUrl)
+                    .data(image.multiSizeImage.getNearestUrl(
+                        ImageSize(
+                            // TODO real size
+                            width = 200.dp.toPx().toInt(),
+                            height = 200.dp.toPx().toInt()
+                    )))
                     .crossfade(true)
                     .crossfade(200)
                     .build(),

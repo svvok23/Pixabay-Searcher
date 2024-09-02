@@ -66,6 +66,12 @@ fun ImagesSearchScreen(
 ) {
     val viewStyle = rememberSaveable { mutableStateOf(List) }
 
+    val images = viewModel.imagesPagingFlow.collectAsLazyPagingItems()
+    val toRefresh by viewModel.toRefresh.collectAsStateWithLifecycle()
+    LaunchedEffect(toRefresh) {
+        if (toRefresh) images.refresh()
+    }
+
     CollapsingLayout(
         style = CollapsingLayoutStyle.Sticky,
         modifier = Modifier.fillMaxWidth(),
@@ -73,12 +79,6 @@ fun ImagesSearchScreen(
             SearchToolBar(modifier, viewModel, viewStyle)
         },
         bodyContent = {
-            val images = viewModel.imagesPagingFlow.collectAsLazyPagingItems()
-
-            val toRefresh by viewModel.toRefresh.collectAsStateWithLifecycle()
-            LaunchedEffect(toRefresh) {
-                if (toRefresh) images.refresh()
-            }
 
             var refreshing by remember { mutableStateOf(false) }
             fun refresh() {
@@ -89,6 +89,7 @@ fun ImagesSearchScreen(
             val pullRefreshState = rememberPullRefreshState(refreshing, ::refresh)
 
             Box(modifier = Modifier.pullRefresh(state = pullRefreshState)) {
+                // TODO to viewModel and State ??
                 when {
                     // Error Screen
                     images.loadState.hasError -> {

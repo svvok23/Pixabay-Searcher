@@ -5,6 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import kotlinx.serialization.SerialName
 
 @Entity(
     tableName = "images_table",
@@ -21,7 +22,15 @@ data class ImageEntity(
     val height: Int,
     var pageUrl: String,
     val previewUrl: String,
+    @ColumnInfo(defaultValue = 0.toString())
+    val previewWidth: Int,
+    @ColumnInfo(defaultValue = 0.toString())
+    val previewHeight: Int,
     val webFormatUrl: String,
+    @ColumnInfo(defaultValue = 0.toString())
+    val webFormatWidth: Int,
+    @ColumnInfo(defaultValue = 0.toString())
+    val webFormatHeight: Int,
     val largeImageUrl: String,
     val fullHdUrl: String?,
     val originalUrl: String?,

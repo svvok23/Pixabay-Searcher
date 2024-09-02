@@ -31,7 +31,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -52,6 +51,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter.State.Error
 import coil.compose.AsyncImagePainter.State.Loading
@@ -71,7 +71,7 @@ fun ImageScreen(
     viewModel: ImageViewModel = hiltViewModel(),
     onBack: () -> Unit,
 ) {
-    val (image, cashedUrl) = viewModel.imageFlow.collectAsState().value
+    val (image, cashedUrl) = viewModel.imageFlow.collectAsStateWithLifecycle().value
     if (image == null) return
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -105,7 +105,7 @@ fun ImageScreen(
 
             SubcomposeAsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(image.getLargestImageUrl())
+                    .data(image.multiSizeImage.getLargestImageUrl())
                     .crossfade(true)
                     .crossfade(200)
                     .build(),

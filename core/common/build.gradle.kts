@@ -29,6 +29,7 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)

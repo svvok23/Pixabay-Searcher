@@ -6,11 +6,7 @@ data class Image(
     val width: Int = 0,
     val height: Int = 0,
     var pageUrl: String = "",
-    val previewUrl: String = "",
-    val webFormatUrl: String = "",
-    val largeImageUrl: String = "",
-    val fullHdUrl: String? = null,
-    val originalUrl: String? = null,
+    val multiSizeImage: MultiSizeImage,
     val tags: List<String> = emptyList(),
     val user: User = User(),
     val views: Int = 0,
@@ -19,14 +15,6 @@ data class Image(
     val comments: Int = 0,
 ) {
     val aspectRatio = width.toFloat() / height.toFloat()
-    fun getLargestImageUrl(): String? {
-        if (originalUrl.isNullOrEmpty().not()) return originalUrl
-        if (fullHdUrl.isNullOrEmpty().not()) return fullHdUrl
-        if (largeImageUrl.isNotEmpty()) return largeImageUrl
-        if (webFormatUrl.isNotEmpty()) return webFormatUrl
-        if (previewUrl.isNotEmpty()) return previewUrl
-        return null
-    }
 }
 
 

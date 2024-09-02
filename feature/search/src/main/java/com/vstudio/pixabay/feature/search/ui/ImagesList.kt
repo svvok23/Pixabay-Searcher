@@ -80,7 +80,7 @@ private fun ImageCard(
         Box(modifier = modifier) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(image.largeImageUrl)
+                    .data(image.multiSizeImage.getLargestImageUrl())
                     .crossfade(true)
                     .crossfade(200)
                     .build(),

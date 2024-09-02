@@ -5,7 +5,12 @@ import com.vstudio.pixabay.core.database.model.ImageEntity
 import com.vstudio.pixabay.core.database.model.UserEntity
 import com.vstudio.pixabay.core.network.model.HitDto
 import com.vstudio.pixabay.core.domain.model.Image
+import com.vstudio.pixabay.core.domain.model.ImageSize
+import com.vstudio.pixabay.core.domain.model.MultiSizeImage
 import com.vstudio.pixabay.core.domain.model.User
+import com.vstudio.pixabay.core.domain.model.getImageSize
+import com.vstudio.pixabay.core.network.NetworkConst.FULL_HD_IMAGE_MAX_SIZE
+import com.vstudio.pixabay.core.network.NetworkConst.LARGE_IMAGE_MAX_SIZE
 import javax.inject.Inject
 
 internal class ImageMapperDtoToModel @Inject constructor() : Mapper<HitDto, Image> {
@@ -15,17 +20,27 @@ internal class ImageMapperDtoToModel @Inject constructor() : Mapper<HitDto, Imag
             name = from.userName,
             avatarUrl = from.userImageUrl
         )
+
+        val sizes = mutableMapOf(
+            ImageSize(from.previewWidth, from.previewHeight) to from.previewUrl,
+            ImageSize(from.webFormatWidth, from.webFormatHeight) to from.webFormatUrl,
+        )
+        val originalSize = ImageSize(from.imageWidth, from.imageHeight)
+        val ratio = originalSize.aspectRatio
+
+        from.largeImageUrl.let { sizes[getImageSize(ratio, LARGE_IMAGE_MAX_SIZE)] = it }
+        from.fullHdUrl?.let { sizes[getImageSize(ratio, FULL_HD_IMAGE_MAX_SIZE)] = it }
+        from.imageUrl?.let { sizes[originalSize] = it }
+
+        val multiSizeImage = MultiSizeImage(sizes.toMap())
+
         return Image(
             dbId = 0,
             id = from.id,
             width = from.imageWidth,
             height = from.imageHeight,
             pageUrl = from.pageUrl,
-            previewUrl = from.previewUrl,
-            webFormatUrl = from.webFormatUrl,
-            largeImageUrl = from.largeImageUrl,
-            fullHdUrl = from.fullHdUrl,
-            originalUrl = from.imageUrl,
+            multiSizeImage = multiSizeImage,
             tags = from.tags.tagsToList(),
             user = user,
             views = from.views,
@@ -49,7 +64,11 @@ internal class ImageMapperDtoToEntity @Inject constructor() : Mapper<HitDto, Ima
             height = from.imageHeight,
             pageUrl = from.pageUrl,
             previewUrl = from.previewUrl,
+            previewWidth = from.previewWidth,
+            previewHeight = from.previewHeight,
             webFormatUrl = from.webFormatUrl,
+            webFormatWidth = from.webFormatWidth,
+            webFormatHeight = from.webFormatHeight,
             largeImageUrl = from.largeImageUrl,
             fullHdUrl = from.fullHdUrl,
             originalUrl = from.imageUrl,
@@ -71,17 +90,28 @@ internal class ImageMapperEntityToModel @Inject constructor() : Mapper<ImageEnti
             name = from.user.name,
             avatarUrl = from.user.avatarUrl
         )
+
+        val originalSize = ImageSize(from.width, from.height)
+        val ratio = originalSize.aspectRatio
+
+        val sizes = mutableMapOf(
+            ImageSize(from.previewWidth, from.previewHeight) to from.previewUrl,
+            ImageSize(from.webFormatWidth, from.webFormatHeight) to from.webFormatUrl,
+        )
+
+        from.largeImageUrl.let { sizes[getImageSize(ratio, LARGE_IMAGE_MAX_SIZE)] = it }
+        from.fullHdUrl?.let { sizes[getImageSize(ratio, FULL_HD_IMAGE_MAX_SIZE)] = it }
+        from.originalUrl?.let { sizes[originalSize] = it }
+
+        val multiSizeImage = MultiSizeImage(sizes.toMap())
+
         return Image(
             dbId = from.id,
             id = from.imageId,
             width = from.width,
             height = from.height,
             pageUrl = from.pageUrl,
-            previewUrl = from.previewUrl,
-            webFormatUrl = from.webFormatUrl,
-            largeImageUrl = from.largeImageUrl,
-            fullHdUrl = from.fullHdUrl,
-            originalUrl = from.originalUrl,
+            multiSizeImage = multiSizeImage,
             tags = from.tags,
             user = user,
             views = from.views,
